@@ -1,0 +1,59 @@
+﻿@model List<Activity2Part1.Models.UserModel>
+@{ 
+    ViewBag.Title = "Test";
+}
+@{
+    ViewBag.Title = "My App";
+    Layout = "~/Views/Shared/_MyDefaultLayout.cshtml";
+}
+
+<!DOCTYPE html>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        th {
+            background-color: #D2691E;
+            color: white;
+        }
+    </style>
+
+    <div style="text-align: center">
+        @Html.Label("Welcome to Razor", new { style = "font-size: 24px; font-Weight: bold;" })
+    </div>
+    <div style="text-align: left">
+        @Html.Label("My Customers are: ", new { style = "font-size: 18px; font-Weight: bold;" })
+    </div>
+    <div>
+
+        <table>
+            <tr>
+                <th>Name </th>
+                <th>Email Address </th>
+                <th>Phone Number</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EmailAddress)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        @Html.ActionLink("Refresh Page", "")
+    </div>
+
