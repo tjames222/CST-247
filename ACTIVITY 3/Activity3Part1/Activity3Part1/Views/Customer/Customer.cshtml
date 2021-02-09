@@ -1,0 +1,40 @@
+﻿@using Activity3Part1.Models
+@model Tuple<List<Activity3Part1.Models.CustomerModel>, Activity3Part1.Models.CustomerModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/Scripts/jquery-3.4.1.js")
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+@{
+    var ajaxOptions = new AjaxOptions();
+    ajaxOptions.HttpMethod = "POST";
+    ajaxOptions.InsertionMode = InsertionMode.Replace;
+    ajaxOptions.UpdateTargetId = "customerInfo";
+    ajaxOptions.OnSuccess = "ajaxSuccess";
+}
+
+<title>@ViewBag.Title</title>
+
+
+
+<div>
+    @Html.Label("Please select a customer")
+
+    @using (Html.BeginForm("OnSelectCustomer", "Customer", FormMethod.Post, new { id = "myform" }))
+    {
+        <br />
+        <div id="customerInfo">
+            @Html.Partial("_CustomerDetails", Model.Item2)
+        </div>
+        <br />
+        foreach (var cust in Model.Item1)
+        {
+            @Html.DisplayFor(model => cust.Name)
+            @Html.RadioButton("radioButton", cust.ID - 1, new { @name = cust.Name, @id = cust.ID - 1, @onchange = "myform.submit(this);" })
+            <br />
+        }
+    }
+</div>
+
